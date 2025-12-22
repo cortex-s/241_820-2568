@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: "Kanit";
+        src: url("./Kanit/Kanit-Regular.ttf") format("truetype");
+      }
+      body {
+        background-color: #999;
+        display: flex;
+        justify-content: center;
+        font-family: "Kanit", "sans-serif";
+      }
+      form {
+        background-color: #fff;
+        padding: 4rem;
+        border-radius: 10px;
+        min-width: 512px;
+      }
+      h1 {
+        background-color: #999;
+        padding: 0.25rem 0.75rem;
+        border-radius: 5px;
+      }
+      .form-input {
+        display: grid;
+        gap: 5px;
+      }
+      input {
+        border-radius: 5px;
+        border: 0.01rem solid black;
+        padding: 0.25rem;
+      }
+      button[type="submit"] {
+        background-color: green;
+        padding: 1rem;
+        margin-top: 1rem;
+        width: 10rem;
+        color: #fff;
+        border-radius: 10px 20px;
+      }
+      button[type="submit"]:hover {
+        background-color: black;
+        cursor: pointer;
+      }
+      .age-box {
+        min-width: 96px;
+      }
+      .name-box {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .container {
+        width: 100%;
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+        /* justify-content: space-between; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <h1>Register</h1>
+      <div class="name-box">
+        <div class="form-input">
+          <label for="firstname">ชื่อ</label>
+          <input type="text" name="firstname" id="firstname" />
+        </div>
+        <div class="form-input">
+          <label for="lastname">นามสกุล</label>
+          <input type="text" name="lastname" id="lastname" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="form-input age-box">
+          <label for="age">อายุ</label>
+          <input type="number" name="age" min="0" max="100" id="age" />
+        </div>
+        <div style="display: grid">
+          <label>เพศ</label>
+          <div class="container">
+            <div>
+              <input type="radio" name="geneder" id="male" value="male" /><label
+                for="male"
+              >
+                ชาย
+              </label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="geneder"
+                id="female"
+                value="female"
+              /><label for="female"> หญิง </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1>งานอดิเรก</h1>
+        <div>
+          <input type="checkbox" name="hobby" id="reading" value="reading" />
+          <label for="reading">อ่านหนังสือ</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="hobby"
+            id="traveling"
+            value="traveling"
+          />
+          <label for="traveling">ท่องเที่ยว</label>
+        </div>
+        <div>
+          <input type="checkbox" name="hobby" id="sports" value="sports" />
+          <label for="sports">เล่นกีฬา</label>
+        </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
