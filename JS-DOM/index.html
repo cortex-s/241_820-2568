@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <label for="fname">ชื่อ</label>
+      <input
+        type="text"
+        name="fname"
+        id="fname"
+        value="Es tut mir leid"
+        class="input"
+      />
+    </div>
+    <div>
+      <label for="lname">นามสกุล</label>
+      <input
+        type="text"
+        name="lname"
+        id="lname"
+        value="Ich habe kine ahnung"
+        class="input"
+      />
+    </div>
+    <div>
+      <input type="checkbox" name="hobby" value="reading" /> Reading
+      <input type="checkbox" name="hobby" value="traveling" /> Traveling
+      <input type="checkbox" name="hobby" value="gaming" checked /> Gaming
+    </div>
+    <script>
+      let checkboxValues = document.querySelectorAll('input[name="hobby"]');
+      checkboxValues.forEach((x) => console.log(x.value, x.checked));
+      //   let fnameById = document.getElementById("fname");
+      //   let fnameByName = document.getElementsByName("fname")[0];
+      //   let inputDOMs = document.getElementsByClassName("input");
+      //   for (let index = 0; index < inputDOMs.length; index++) {
+      //     console.log(inputDOMs[index].value);
+      //   }
+      //   const fnameByQS = document.querySelector("#fname").value;
+      //   const lnameByQS = document.querySelector('input[name="lname"]').value;
+      //   console.log(`Firstname:${fnameByQS} | Lastname: ${lnameByQS}`);
+      //   console.log("Hello, World!");
+    </script>
+  </body>
+</html>
