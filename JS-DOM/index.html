@@ -31,9 +31,13 @@
       <input type="checkbox" name="hobby" value="traveling" /> Traveling
       <input type="checkbox" name="hobby" value="gaming" checked /> Gaming
     </div>
+    <button onclick="userClicked()">Click Here</button>
     <script>
-      let checkboxValues = document.querySelectorAll('input[name="hobby"]');
-      checkboxValues.forEach((x) => console.log(x.value, x.checked));
+      function userClicked() {
+        console.log("Button was clicked!");
+      }
+      //   let checkboxValues = document.querySelectorAll('input[name="hobby"]');
+      //   checkboxValues.forEach((x) => console.log(x.value, x.checked));
       //   let fnameById = document.getElementById("fname");
       //   let fnameByName = document.getElementsByName("fname")[0];
       //   let inputDOMs = document.getElementsByClassName("input");
