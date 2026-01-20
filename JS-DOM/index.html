@@ -31,11 +31,40 @@
       <input type="checkbox" name="hobby" value="traveling" /> Traveling
       <input type="checkbox" name="hobby" value="gaming" checked /> Gaming
     </div>
-    <button onclick="userClicked()">Click Here</button>
+    <!-- <button onclick="userClicked()">Click Here</button> -->
+    <div>
+      <div>
+        <label for="male">Male</label>
+        <input
+          type="radio"
+          name="gender"
+          value="male"
+          onchange="onChangeGender()"
+        />
+      </div>
+      <div>
+        <label for="female">Female</label>
+        <input
+          type="radio"
+          name="gender"
+          value="female"
+          onchange="onChangeGender()"
+        />
+      </div>
+    </div>
     <script>
-      function userClicked() {
-        console.log("Button was clicked!");
+      function onChangeGender() {
+        let genderValues = document.getElementsByName("gender");
+        genderValues.forEach((x) => {
+          if (x.checked) {
+            console.log(`Gender selected: ${x.value}`);
+          }
+        });
       }
+
+      //   function userClicked() {
+      //     console.log("Button was clicked!");
+      //   }
       //   let checkboxValues = document.querySelectorAll('input[name="hobby"]');
       //   checkboxValues.forEach((x) => console.log(x.value, x.checked));
       //   let fnameById = document.getElementById("fname");
