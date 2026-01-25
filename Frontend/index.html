@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      :root {
+        --bg: #f8f9fb;
+        --card: #ffffff;
+        --text: #111;
+        --muted: #6b7280;
+        --line: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        color: var(--text);
+      }
+
+      /* Card */
+      .container {
+        width: 100%;
+        max-width: 420px;
+        background: var(--card);
+        padding: 36px 32px;
+        border-radius: 18px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Title */
+      .header {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 36px;
+      }
+
+      /* Form rows */
+      .form-input {
+        margin-bottom: 22px;
+      }
+
+      /* Label */
+      .header-form {
+        min-width: 80px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      /* Layout */
+      .flex {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      /* Text inputs */
+      .form,
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 15px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        outline: none;
+        transition:
+          border 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .form:focus,
+      textarea:focus {
+        border-color: #111;
+        box-shadow: 0 0 0 1px #111;
+      }
+
+      /* Gender layout */
+      .gender .flex div {
+        font-size: 14px;
+        color: #374151;
+      }
+
+      /* Checkbox & radio */
+      input[type="radio"],
+      input[type="checkbox"] {
+        accent-color: #111;
+      }
+
+      /* Textarea */
+      textarea {
+        min-height: 96px;
+        resize: none;
+      }
+
+      /* Button */
+      .center {
+        text-align: center;
+        margin-top: 36px;
+      }
+
+      .button {
+        background: #111;
+        color: #fff;
+        border: none;
+        padding: 14px 44px;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 14px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">Register form</div>
+      <div class="flex form-input">
+        <div class="header-form">ชื่อ</div>
+        <input class="form" name="firstname" type="text" />
+      </div>
+      <div class="flex form-input">
+        <div class="header-form">นามสกุล</div>
+        <input class="form" name="lastname" type="text" />
+      </div>
+      <div class="flex form-input">
+        <div class="header-form">อายุ</div>
+        <input class="form" name="age" type="number" min="0" max="100" />
+      </div>
+      <div class="flex gender form-input">
+        <div class="header-form">เพศ</div>
+        <div class="flex">
+          <div><input name="gender" type="radio" /> ชาย</div>
+          <div><input name="gender" type="radio" /> หญิง</div>
+          <div><input name="gender" type="radio" /> อื่นๆ</div>
+        </div>
+      </div>
+      <div class="form-input">
+        งานอดิเรก
+        <div>
+          <input name="interest" type="checkbox" value="อ่านหนังสือ" />
+          อ่านหนังสือ
+        </div>
+        <div>
+          <input name="interest" type="checkbox" value="ดูหนัง" /> ดูหนัง
+        </div>
+        <div>
+          <input name="interest" type="checkbox" value="ฟังเพลง" /> ฟังเพลง
+        </div>
+      </div>
+      <div class="form-input">
+        คำอธิบาย
+        <textarea name="description"></textarea>
+      </div>
+      <div class="center">
+        <button onclick="submitData()" class="button">ส่งข้อมูล</button>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

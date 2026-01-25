@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .frame {
+        padding: 10rem;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div
+      class="frame"
+      onmouseover="onMouseOver()"
+      onmouseleave="onMouseLeave()"
+    >
+      <label for="fname">ชื่อ</label>
+      <input type="text" name="fname" id="fname" onkeydown="changeFName()" />
+    </div>
+    <script>
+      function changeFName() {
+        let inputElement = document.querySelector("#fname");
+        console.log(inputElement.value);
+      }
+      function onMouseOver() {
+        console.log("Mouse is over here!");
+      }
+      function onMouseLeave() {}
+      console.log("Mouse is leave right now!");
+    </script> -->
+
+    <!-- <div id="hi">Hi <span style="display: none">A</span></div>
+    <script>
+      let hiDom = document.getElementById("hi");
+      console.log("TextContent:", hiDom.textContent);
+      console.log("InnerText:", hiDom.innerText);
+      hiDom.innerHTML = `<span style="color:red">This is innerHTML method</span>`;
+      console.log("InnerHTML:", hiDom.innerHTML);
+    </script> -->
+    <div>
+      <div>
+        <input type="checkbox" id="hobby" value="reading" />
+        <label for="reading"> อ่านหนังสือ</label>
+      </div>
+      <div>
+        <input type="checkbox" id="hobby" value="swimming" />
+        <label for="swimming">ว่ายน้ำ</label>
+      </div>
+      <div>
+        <input type="checkbox" id="hobby" value="gaming" />
+        <label for="gaming">เล่นเกม</label>
+      </div>
+      <button onclick="onSubmitForm()">Submit Bro</button>
+    </div>
+    <div>
+      <h1>งานอดิเรกที่ชอบ</h1>
+      <ul id="result"></ul>
+    </div>
+    <script>
+      function onSubmitForm() {
+        let hobby = document.querySelectorAll("input#hobby");
+        let result = document.getElementById("result");
+        result.innerHTML = "";
+        hobby.forEach((element, i) => {
+          if (!element.checked) {
+            return;
+          }
+          result.innerHTML += `<li id="${i}">${element.value}</li>`;
+          //   console.log(`Hobby ${i + 1}:`, element.checked);
+        });
+      }
+    </script>
+  </body>
+</html>
