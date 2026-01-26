@@ -1,0 +1,37 @@
+// Show all containers (default shows just running)
+docker ps --all
+
+// Show just running containers
+docker ps
+
+// run 
+docker run hello-world
+
+# Pull an image from Docker Hub (or another registry)
+docker pull <image_name>[:tag]
+# example
+docker pull nginx
+
+// Stop containers
+docker stop <container_id>
+
+// Start a container
+docker start <container_id>
+
+// Remove a container
+docker rm <container_id>
+
+// Remove unused container 
+docker system prune
+
+// cat for see data inside file
+cat filename.txt
+
+// for enter to container
+docker run -it <image_name or container_id> bash
+
+// Foreground mode
+docker run -p 9000:80 nginx
+
+// Detached mode
+docker run -d -p 9100:80 nginx
