@@ -1,6 +1,8 @@
 const genderTranslate = { ชาย: "MALE", หญิง: "FEMALE", อื่นๆ: "OTHER" };
 
 async function submitData() {
+  const alertMessage = document.getElementById("alert-message");
+
   const firstname = document
     .querySelector('input[name="firstname"]')
     .value.trim();
@@ -15,21 +17,25 @@ async function submitData() {
     : null;
 
   const interests = [];
+
   try {
+    if (!firstname || !lastname || !age || !gender) {
+      throw new Error("กรุณากรอกข้อมูลให้ครบถ้วน");
+    }
+
     document
       .querySelectorAll('input[name="interest"]:checked')
       .forEach((item) => {
         interests.push(item.value);
       });
 
-    const description = document
-      .querySelector('textarea[name="description"]')
-      .value.trim();
-
-    if (!firstname || !lastname || !age || !gender) {
-      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-      return;
+    if (interests.length === 0) {
+      throw new Error("กรุณาเลือกความสนใจอย่างน้อยหนึ่งข้อ");
     }
+
+    const description =
+      document.querySelector('textarea[name="description"]').value.trim() ||
+      null;
 
     const userData = {
       firstname,
@@ -39,19 +45,24 @@ async function submitData() {
       interests,
       description,
     };
-    let alertMessage = document.getElementById("alert-message");
+
     const r = await axios.post("http://localhost:8000/user", userData);
+
     if (r.data) {
       alertMessage.style.color = "green";
       alertMessage.textContent = "User created successfully!";
       alertMessage.style.visibility = "visible";
     }
   } catch (error) {
+    console.log(error);
+
+    alertMessage.style.color = "red";
+    alertMessage.style.visibility = "visible";
+
     if (error.response) {
-      console.error("Error response:", error.response.data);
-      alertMessage.style.color = "red";
-      alertMessage.textContent = `Error: ${error.response.data.message} | ${error.response.data.error}`;
-      alertMessage.style.visibility = "visible";
+      alertMessage.textContent = `${error.response.data.message} | ${error.response.data.error}`;
+    } else {
+      alertMessage.textContent = error.message;
     }
   }
 }
