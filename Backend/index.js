@@ -1,18 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
+const cors = require("cors");
+
+const port = 8000;
+const corsOptions = {
+  origin: "*",
+  optionSuccessStatus: 200,
+};
 
 const app = express();
-const port = 8000;
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-let users = [];
-let counter = 1;
-let conn = null;
+let conn = null; // Global variable to hold the MySQL connection
+
 const initMySQL = async () => {
   conn = await mysql.createConnection({
     host: "localhost",
@@ -27,6 +33,7 @@ app.get("/users", async (req, res) => {
   const [result] = await conn.query("SELECT * FROM users");
   res.send(result);
 });
+
 app.post("/user", async (req, res) => {
   try {
     const rawData = req.body;
