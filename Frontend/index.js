@@ -1,5 +1,29 @@
 const genderTranslate = { ชาย: "MALE", หญิง: "FEMALE", อื่นๆ: "OTHER" };
+const validateData = (data) => {
+  let errors = [];
 
+  if (!data.firstname) {
+    errors.push("กรุณากรอกชื่อ");
+  }
+
+  if (!data.lastname) {
+    errors.push("กรุณากรอกนามสกุล");
+  }
+
+  if (!data.age) {
+    errors.push("กรุณากรอกอายุ");
+  }
+
+  if (!data.gender) {
+    errors.push("กรุณาเลือกเพศ");
+  }
+
+  if (data.interests.length === 0) {
+    errors.push("กรุณาเลือกความสนใจอย่างน้อยหนึ่งข้อ");
+  }
+
+  return errors;
+};
 async function submitData() {
   const alertMessage = document.getElementById("alert-message");
 
@@ -19,9 +43,9 @@ async function submitData() {
   const interests = [];
 
   try {
-    if (!firstname || !lastname || !age || !gender) {
-      throw new Error("กรุณากรอกข้อมูลให้ครบถ้วน");
-    }
+    // if (!firstname || !lastname || !age || !gender) {
+    //   throw new Error("กรุณากรอกข้อมูลให้ครบถ้วน");
+    // }
 
     document
       .querySelectorAll('input[name="interest"]:checked')
@@ -29,9 +53,9 @@ async function submitData() {
         interests.push(item.value);
       });
 
-    if (interests.length === 0) {
-      throw new Error("กรุณาเลือกความสนใจอย่างน้อยหนึ่งข้อ");
-    }
+    // if (interests.length === 0) {
+    //   throw new Error("กรุณาเลือกความสนใจอย่างน้อยหนึ่งข้อ");
+    // }
 
     const description =
       document.querySelector('textarea[name="description"]').value.trim() ||
@@ -41,10 +65,17 @@ async function submitData() {
       firstname,
       lastname,
       age,
-      gender: genderTranslate[gender] || "OTHER",
+      gender: genderTranslate[gender],
       interests,
       description,
     };
+
+    const errors = validateData(userData);
+    if (errors.length > 0) {
+      throw {
+        response: { data: { message: "Validation Error", error: errors } },
+      };
+    }
 
     const r = await axios.post("http://localhost:8000/user", userData);
 
@@ -52,17 +83,59 @@ async function submitData() {
       alertMessage.style.color = "green";
       alertMessage.textContent = "User created successfully!";
       alertMessage.style.visibility = "visible";
+      clearInput();
     }
   } catch (error) {
-    console.log(error);
-
     alertMessage.style.color = "red";
     alertMessage.style.visibility = "visible";
 
+    let message = "";
+    let errList = [];
+
     if (error.response) {
-      alertMessage.textContent = `${error.response.data.message} | ${error.response.data.error}`;
+      message = error.response.data.message || "Error";
+      const err = error.response.data.error;
+
+      if (Array.isArray(err)) {
+        errList = err;
+      } else if (err) {
+        errList = [err];
+      }
     } else {
-      alertMessage.textContent = error.message;
+      errList = [error.message];
     }
+
+    const listHTML = errList.map((e) => `<li>${e}</li>`).join("");
+
+    alertMessage.innerHTML = `
+    <div>${message}</div>
+    <ul>${listHTML}</ul>
+  `;
   }
+}
+function clearInput() {
+  // clear text inputs
+  document.querySelector('input[name="firstname"]').value = "";
+  document.querySelector('input[name="lastname"]').value = "";
+  document.querySelector('input[name="age"]').value = "";
+
+  // clear gender (radio)
+  document
+    .querySelectorAll('input[name="gender"]')
+    .forEach((item) => (item.checked = false));
+
+  // clear interests (checkbox)
+  document
+    .querySelectorAll('input[name="interest"]')
+    .forEach((item) => (item.checked = false));
+
+  // clear description
+  document.querySelector('textarea[name="description"]').value = "";
+
+  // delay 3 seconds แล้วค่อยซ่อน
+  const alertMessage = document.getElementById("alert-message");
+  setTimeout(() => {
+    alertMessage.textContent = "";
+    alertMessage.style.visibility = "hidden";
+  }, 3000);
 }

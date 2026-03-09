@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
+const { validateData } = require("./validate");
 
 const port = 8000;
 const corsOptions = {
@@ -30,13 +31,24 @@ const initMySQL = async () => {
 };
 
 app.get("/users", async (req, res) => {
-  const [result] = await conn.query("SELECT * FROM users");
+  const [result] = await conn.query("SELECT * FROM users WHERE deletedAt IS NULL");
   res.send(result);
 });
 
 app.post("/user", async (req, res) => {
   try {
     const rawData = req.body;
+    // force interests ให้เป็น array
+    const interests = Array.isArray(rawData.interests)
+      ? rawData.interests
+      : rawData.interests
+        ? [rawData.interests]
+        : [];
+    const errors = validateData({ ...rawData, interests });
+    if (errors.length > 0) {
+      throw { code: "INVALID_VALIDATION", errors };
+    }
+
     const [result] = await conn.query(
       "INSERT INTO users (firstname, lastname, age, gender,interests, description) VALUES (?, ?, ?, ?, ?, ?)",
       [
@@ -44,12 +56,19 @@ app.post("/user", async (req, res) => {
         rawData.lastname,
         rawData.age,
         rawData.gender,
-        rawData.interests,
+        rawData.interests.join(",") || rawData.interests,
         rawData.description,
       ],
     );
     res.send({ message: "User added successfully!", userId: result.insertId });
   } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+
+    if (error.code === "INVALID_VALIDATION") {
+      return res
+        .status(400)
+        .json({ message: "Validation Error", error: error.errors });
+    }
     console.error("Error inserting user:", error);
     res
       .status(500)
@@ -130,7 +149,7 @@ app.put("/user/:id", async (req, res) => {
 app.delete("/user/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await conn.query("DELETE FROM users WHERE id = ?", [id]);
+    await conn.query("UPDATE users SET deletedAt = NOW() WHERE id = ?", [id]);
     res.status(200).json({
       message: "User deleted successfully",
     });

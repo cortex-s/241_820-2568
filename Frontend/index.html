@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>User Register</title>
+
     <style>
       :root {
-        --bg: #f8f9fb;
+        --primary: #4f46e5;
+        --bg: #f4f6fb;
         --card: #ffffff;
-        --text: #111;
+        --text: #111827;
         --muted: #6b7280;
         --line: #e5e7eb;
       }
@@ -25,137 +26,142 @@
       }
 
       body {
-        background: var(--bg);
+        margin: 0;
+        background: #f6f7fb;
         min-height: 100vh;
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 24px;
+        align-items: center;
         color: var(--text);
+
+        background: linear-gradient(135deg, #667eea, #764ba2);
       }
 
-      /* Card */
+      /* card */
       .container {
         width: 100%;
-        max-width: 420px;
+        max-width: 380px;
         background: var(--card);
-        padding: 36px 32px;
-        border-radius: 18px;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+        padding: 28px 26px;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       }
 
-      /* Title */
+      /* title */
       .header {
         text-align: center;
-        font-size: 22px;
-        font-weight: 500;
-        margin-bottom: 36px;
-      }
-
-      /* Form rows */
-      .form-input {
+        font-size: 20px;
+        font-weight: 600;
         margin-bottom: 22px;
       }
 
-      /* Label */
-      .header-form {
-        min-width: 80px;
-        font-size: 14px;
-        color: var(--muted);
-      }
-
-      /* Layout */
+      /* layout */
       .flex {
         display: flex;
-        gap: 16px;
+        gap: 10px;
         align-items: center;
       }
 
-      /* Text inputs */
+      .form-input {
+        margin-bottom: 14px;
+      }
+
+      .header-form {
+        min-width: 80px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* inputs */
       .form,
       textarea {
         width: 100%;
-        padding: 12px 14px;
-        font-size: 15px;
-        border-radius: 12px;
+        padding: 9px 10px;
+        border-radius: 8px;
         border: 1px solid var(--line);
+        font-size: 13px;
         outline: none;
-        transition:
-          border 0.2s ease,
-          box-shadow 0.2s ease;
       }
 
       .form:focus,
       textarea:focus {
-        border-color: #111;
-        box-shadow: 0 0 0 1px #111;
+        border-color: var(--primary);
       }
 
-      /* Gender layout */
-      .gender .flex div {
-        font-size: 14px;
-        color: #374151;
-      }
-
-      /* Checkbox & radio */
-      input[type="radio"],
-      input[type="checkbox"] {
-        accent-color: #111;
-      }
-
-      /* Textarea */
       textarea {
-        min-height: 96px;
+        min-height: 70px;
         resize: none;
       }
 
-      /* Button */
+      /* checkbox radio */
+      input[type="radio"],
+      input[type="checkbox"] {
+        accent-color: var(--primary);
+        margin-right: 4px;
+      }
+
+      .gender .flex div {
+        font-size: 13px;
+      }
+
+      /* button */
       .center {
         text-align: center;
-        margin-top: 36px;
+        margin-top: 18px;
       }
 
       .button {
-        background: #111;
-        color: #fff;
+        background: var(--primary);
+        color: white;
         border: none;
-        padding: 14px 44px;
-        font-size: 15px;
-        font-weight: 500;
-        border-radius: 14px;
+        padding: 10px 30px;
+        font-size: 14px;
+        border-radius: 8px;
         cursor: pointer;
-        letter-spacing: 0.3px;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
       }
 
       .button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+        opacity: 0.9;
       }
 
-      .button:active {
-        transform: translateY(0);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      /* link */
+      .nav {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        font-size: 13px;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      #alert-message {
+        font-size: 13px;
+        margin-top: 6px;
       }
     </style>
   </head>
+
   <body>
+    <a class="nav" href="user.html">User Management</a>
+
     <div class="container">
-      <div class="header">Register form</div>
+      <div class="header">Register Form</div>
+
       <div class="flex form-input">
         <div class="header-form">ชื่อ</div>
         <input class="form" name="firstname" type="text" />
       </div>
+
       <div class="flex form-input">
         <div class="header-form">นามสกุล</div>
         <input class="form" name="lastname" type="text" />
       </div>
+
       <div class="flex form-input">
         <div class="header-form">อายุ</div>
-        <input class="form" name="age" type="number" min="0" max="100" />
+        <input class="form" name="age" type="number" />
       </div>
+
       <div class="flex gender form-input">
         <div class="header-form">เพศ</div>
         <div class="flex">
@@ -164,6 +170,7 @@
           <div><input name="gender" type="radio" /> อื่นๆ</div>
         </div>
       </div>
+
       <div class="form-input">
         งานอดิเรก
         <div>
@@ -177,15 +184,19 @@
           <input name="interest" type="checkbox" value="ฟังเพลง" /> ฟังเพลง
         </div>
       </div>
+
       <div class="form-input">
         คำอธิบาย
         <textarea name="description"></textarea>
       </div>
-      <div id="alert-message" style="visibility: hidden;"></div>
+
+      <div id="alert-message" style="visibility: hidden"></div>
+
       <div class="center">
         <button onclick="submitData()" class="button">ส่งข้อมูล</button>
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
     <script src="index.js"></script>
   </body>
