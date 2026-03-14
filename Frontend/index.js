@@ -1,3 +1,5 @@
+const BASE_URL = "http://localhost:8000";
+
 const genderTranslate = { ชาย: "MALE", หญิง: "FEMALE", อื่นๆ: "OTHER" };
 const validateData = (data) => {
   let errors = [];
@@ -77,7 +79,7 @@ async function submitData() {
       };
     }
 
-    const r = await axios.post("http://localhost:8000/user", userData);
+    const r = await axios.post(`${BASE_URL}/user`, userData);
 
     if (r.data) {
       alertMessage.style.color = "green";

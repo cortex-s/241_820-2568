@@ -31,10 +31,28 @@ const initMySQL = async () => {
 };
 
 app.get("/users", async (req, res) => {
-  const [result] = await conn.query("SELECT * FROM users WHERE deletedAt IS NULL");
+  const [result] = await conn.query(
+    "SELECT * FROM users WHERE deletedAt IS NULL",
+  );
   res.send(result);
 });
-
+app.get("/user/:id", async (req, res) => {
+  const { id } = req.params;
+  const [result] = await conn.query(
+    "SELECT * FROM users WHERE id = ? AND deletedAt IS NULL",
+    [id],
+  );
+  if (result.length === 0) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  } else {
+    res.json({
+      message: "User retrieved successfully",
+      user: result[0],
+    });
+  }
+});
 app.post("/user", async (req, res) => {
   try {
     const rawData = req.body;
@@ -97,10 +115,13 @@ app.get("/user/:id", async (req, res) => {
 });
 app.put("/user/:id", async (req, res) => {
   try {
-    let id = req.params.id;
-    let updatedUser = req.body;
+    const id = req.params.id;
+    const updatedUser = req.body;
+
     const [result] = await conn.query(
-      "UPDATE users SET firstname = ?, lastname = ?, age = ?, gender = ?, interests = ?, description = ? WHERE id = ?",
+      `UPDATE users 
+       SET firstname = ?, lastname = ?, age = ?, gender = ?, interests = ?, description = ?
+       WHERE id = ?`,
       [
         updatedUser.firstname,
         updatedUser.lastname,
@@ -109,11 +130,17 @@ app.put("/user/:id", async (req, res) => {
         updatedUser.interests,
         updatedUser.description,
         id,
-      ],
+      ]
     );
+
     if (result.affectedRows === 0) {
       throw { statusCode: 404, message: "User not found" };
     }
+
+    res.json({
+      message: "User updated successfully",
+    });
+
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(error.statusCode || 500).json({
